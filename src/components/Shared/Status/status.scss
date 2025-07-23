@@ -1,0 +1,88 @@
+.p-datepicker-trigger .p-button .p-component .p-button-icon-only{
+    background-color: #4F90CC !important;
+}
+
+.custom-calendar .p-datepicker-trigger {
+    background-color: #4F90CC !important;
+    border-radius: 4px;
+    border: none;
+    padding: 0.5rem;
+    right: 30px;
+
+}
+
+/* Optional: Add hover effect */
+.custom-calendar .p-datepicker-trigger:hover {
+    background-color: #4F90CC !important;
+}
+
+
+@media (max-width: 1280px) {
+    .p-text{
+        font-size: 12px !important;
+    }
+ .p-dialog-content {
+   //height: 780px !important;
+   overflow: scroll;
+  }
+
+.custom-calendar{
+    height: 30px !important;
+}
+
+.custom-calendar .p-datepicker-trigger {
+    background-color: #4F90CC !important;
+    height: 24px !important;
+    border-radius: 4px;
+    width: 26px !important;
+    position: relative;
+    right: 29px;
+    top: 2px;
+}
+.searchInputs .p-inputtext::placeholder{
+    font-size: 10px !important;
+}
+
+.searchInputs::placeholder{
+    font-size: 9px !important;
+}
+}
+
+@media (max-width: 1536px) {
+    .p-text{
+        font-size: 12px !important;
+    }
+ .p-dialog-content {
+   //height: 780px !important;
+   overflow: scroll;
+  }
+
+.custom-calendar{
+    height: 30px !important;
+}
+
+.custom-calendar .p-datepicker-trigger {
+    background-color: #4F90CC !important;
+    height: 24px !important;
+    border-radius: 4px;
+    width: 26px !important;
+    position: relative;
+    right: 29px;
+    top: 2px;
+}
+.searchInputs .p-inputtext::placeholder{
+    font-size: 10px !important;
+}
+
+.searchInputs::placeholder{
+    font-size: 9px !important;
+}
+}
+
+.p-dialog-content {
+    .fileUpload  {
+        max-height: 300px !important;
+        overflow-y: auto;
+    }
+}
+

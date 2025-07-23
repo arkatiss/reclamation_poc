@@ -1,0 +1,537 @@
+$primary-color: #4F90CC;
+$secondary-color: scale-color($primary-color, $lightness: 85%);
+$white: #fff;
+$black: #000;
+$miniFont: 2;
+$smallFont: 4;
+$mediumFont: 8;
+$largeFont: 12;
+$border-color: #D6D6D6;
+$bold: 600;
+$lightBold: 500;
+$labelColor: #101018;
+$activeColor: #0E9913;
+$inActiveColor: #a5a5a5;
+$tableHeaderFont: #364049;
+$successButton-color: #04aa6d;
+$font: 'Inter';
+$tiredMenuborderBottom:#d6d6d6;
+$danger: #d32f2f;
+
+@mixin button-primary($white, $primary-color) {
+    border-radius: $miniFont*4px;
+    font-size: $smallFont*3.5px;
+    font-weight: $bold;
+    font-family: $font;
+    font-style: normal;
+    border: none !important;
+    padding: $smallFont*2.25px $mediumFont*2px;
+    background-color: $primary-color;
+    color: $white;
+    letter-spacing: 0.03em;
+    line-height: normal;
+    display: flex;
+    align-items: center;
+    @media (min-width: 800px) and (max-width: 1800px){
+        font-size: $smallFont * 3px; // Adjust the font size for smaller screens
+    }
+}
+
+@mixin button-secondary($white, $primary-color, $border-color) {
+    border-radius: $miniFont*4px;
+    font-size: $smallFont*3.5px;
+    font-weight: $bold;
+    font-family: $font;
+    font-style: normal;
+    border: 1px solid $border-color !important;
+    padding: $smallFont*1.75px $mediumFont*2px !important;
+    background-color: $white;
+    color: $black;
+    letter-spacing: 0.03em;
+    line-height: normal;
+    display: flex;
+    align-items: center;
+    @media (min-width: 800px) and (max-width: 1800px){
+        font-size: $smallFont * 3px; // Adjust the font size for smaller screens
+    }
+}
+
+@mixin button-secondary-border($white, $primary-color, $border-color) {
+    border-radius: $miniFont*4px;
+    font-size: $smallFont*3.5px;
+    font-weight: $bold;
+    font-family: $font;
+    font-style: normal;
+    border: 1px solid $primary-color !important;
+    padding: $smallFont*2px $mediumFont*2px !important;
+    background-color: $white;
+    color: $primary-color;
+    letter-spacing: 0.03em;
+    line-height: normal;
+    @media (min-width: 800px) and (max-width: 1800px){
+        font-size: $smallFont * 3px; // Adjust the font size for smaller screens
+    }
+}
+
+@mixin danger-button($white, $danger) {
+    border-radius: $miniFont*4px;
+    font-size: $smallFont*3.5px;
+    font-weight: $bold;
+    font-family: $font;
+    font-style: normal;
+    border: none !important;
+    padding: $smallFont*2px $mediumFont*2px;
+    background-color: $danger;
+    color: $white;
+    letter-spacing: 0.03em;
+    line-height: normal;
+    @media (min-width: 800px) and (max-width: 1800px){
+        font-size: $smallFont * 3px; // Adjust the font size for smaller screens
+    }
+}
+
+@mixin edit-button($white, $activeColor) {
+    border-radius: $miniFont*4px;
+    font-size: $smallFont*3.5px;
+    font-weight: $bold;
+    font-family: $font;
+    font-style: normal;
+    border: none !important;
+    padding: $smallFont*2px $mediumFont*2px;
+    background-color: $activeColor;
+    color: $white;
+    letter-spacing: 0.03em;
+    line-height: normal;
+    @media (min-width: 800px) and (max-width: 1800px){
+        font-size: $smallFont * 3px; // Adjust the font size for smaller screens
+    }
+}
+
+@mixin label-class($labelColor) {
+    font-family: $font;
+    font-size: $miniFont*7px;
+    font-weight: $bold;
+    color: $labelColor;
+    @media (min-width: 800px) and (max-width: 1800px){
+        font-size: $miniFont * 6px; // Adjust the font size for smaller screens
+    }
+}
+
+@mixin title-class($labelColor) {
+    font-family: $font;
+    font-size: $mediumFont*2.25px;
+    font-weight: $bold;
+    color: $labelColor;
+}
+
+@mixin page-title-class($labelColor) {
+    font-family: $font;
+    font-size: $mediumFont*2.25px;
+    font-weight: $bold;
+    color: $labelColor;
+}
+
+.primary-button {
+    @include button-primary($white, $primary-color);
+}
+
+.success-button {
+    @include button-primary($white, $successButton-color);
+    background-color: $successButton-color;
+}
+
+.secondary-button {
+    @include button-secondary($white, $primary-color, $border-color);
+}
+
+.border-button {
+    @include button-secondary-border($white, $primary-color, $border-color);
+}
+
+.delete-button {
+    @include danger-button($white, $danger);
+}
+
+.edit-button {
+    @include edit-button($white, $activeColor);
+}
+
+.label {
+    @include label-class($labelColor);
+}
+
+.title-tag {
+    @include title-class($labelColor);
+}
+
+.page-title {
+    @include page-title-class($labelColor);
+}
+
+.f-30 {
+    font-size: $largeFont*2.5px;
+    @media (min-width: 800px) and (max-width: 1800px){
+        font-size: $largeFont*2px; // Adjust the font size for smaller screens
+    }
+}
+
+.f-20 {
+    font-size: $smallFont*5px;
+}
+
+.f-18 {
+    font-size: $smallFont*4.5px;
+}
+
+.f-16 {
+    font-size: $smallFont*4px;
+    @media (min-width: 800px) and (max-width: 1800px){
+        font-size: $smallFont*3.5px; // Adjust the font size for smaller screens
+    }
+}
+
+.black {
+    color: $black;
+}
+
+.divison{
+    font-size: $smallFont*4px;
+    font-weight: 600;
+    font-family: $font;
+    font-style: normal;
+    color: #000;
+    letter-spacing: 0.03em;
+    line-height: normal;
+    @media (min-width: 800px) and (max-width: 1800px){
+        font-size: $smallFont*3.5px; // Adjust the font size for smaller screens
+    }
+}
+
+.p-paginator-left-content .p-button{
+  display: none !important;
+}
+
+.p-paginator-right-content .p-button{
+    display: none !important;
+}
+.button-bg {
+    @include button-primary($white, $primary-color);
+   padding: $miniFont*1.5px !important;
+}
+
+.p-tabmenuitem a:hover{
+    border: none !important;
+}
+
+.margin-left-auto{
+      margin-left: auto;
+}
+
+.list-menu {
+    font-size: $miniFont * 8px;
+    font-weight: $lightBold;
+    font-family: $font;
+    cursor: pointer;
+}
+.costRadio{
+    margin-left: 1rem;
+}
+.autoCompleteCSS{
+    width: 15.5rem !important;
+    height: 1.9rem !important;
+
+}
+.textboxCSS{
+    // width: 13rem;
+    height: 2rem;
+
+}
+.disbaledImg{
+    pointer-events: none;
+}
+
+
+
+.auto-complete-with-clear {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+
+}
+.auto-complete-with-clear-store{
+     position: relative;
+    display: flex;
+    align-items: center;
+    margin-right: 22px;
+}
+
+
+.auto-complete {
+    width: 100%;
+}
+
+.clear-icon {
+    position: absolute;
+    right: 1rem;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.clear-icon3 {
+   position: absolute;
+    right: 1rem;
+    cursor: pointer;
+    margin-right: 16px;
+    top: 0.6rem;
+    color: #6c757d;
+    font-size: 12px;
+}
+
+.item-details .clear-icon2 {
+    position: absolute;
+    right: 2rem;
+    cursor: pointer;
+    color: #6c757d;
+    top: 2.1rem;
+    font-size: 12px;
+}
+
+.clear-icon-store{
+    position: absolute;
+    right: 1rem;
+    cursor: pointer;
+    margin-right: 18px;
+}
+.disabled-icon {
+  pointer-events: none;
+  opacity: 0.5; 
+}
+
+.lblValue{
+    font-family: "Inter";
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 7px;
+}
+.btnRoles{
+    border: none;
+    border-radius: 8px;
+    // font-weight: 500;
+    padding: 2.75px 10px;
+    font-size: 15px;
+    background: #e5eef7;
+}
+.btnRolesActive{
+    padding: 2.75px 10px;
+    background-color: $primary-color;
+    color: white;
+    border-radius: 8px;
+    font-weight: 500;
+    border: none;
+    font-size: 15px;
+}
+.roleDiv{
+    border: 1px solid #d3d3d3;
+    border-radius: 10px;
+    padding: 3px;
+    margin-left: 13px;
+}
+.dropdownRoles {
+    margin-left: 1rem;
+    margin-top: 0.2rem;
+}
+.calDate {
+    height: 2rem;
+}
+.dropDownCss{
+    width: 18%;
+    overflow: hidden;
+}
+.dialogHeight{
+    height: 35vw !important;
+}
+.float-right{
+    float: right;
+}
+.autoCompleteWidth input{
+    width: 100%;
+}
+.starColor{
+    color: red;
+}
+.p-toggleable-content{
+max-height: 200px;
+overflow: auto;
+}
+.input-wrapper {
+    position: relative;
+}
+
+.input-with-icon {
+    padding-right: 2rem; 
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    right: 0.5rem;
+    transform: translateY(-50%);
+    color: #555; 
+    font-size: 1rem; 
+    cursor: pointer;
+}
+
+.input-with-icon{
+    height: 38px;
+}
+.input-with-icon::placeholder {
+    font-size: 0.85rem; 
+    color: #aaa; 
+}
+
+.userRadio{
+    display: flex !important;
+    justify-content: center !important;
+    margin-top: 11px !important;
+    width: 58%;
+}
+.userRadioBtn{
+    display: flex !important;
+    justify-content: center !important;
+    margin-top: 9px !important;
+    // align-items: center;
+    // margin-left: 4px;
+   
+}
+.search-icon-spinner{
+     position: absolute;
+     top: 30%;
+    // top: 15px;
+    font-size: 10px;
+    right: 10px;
+    transform: translateY(-50%);
+    color: #555; 
+    font-size: 1rem; 
+    cursor: pointer;
+}
+.success-button-create {
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: "Inter";
+    font-style: normal;
+    border: none !important;
+    padding: 6px 16px;
+    background-color: #04aa6d;
+    color: #fff;
+    letter-spacing: 0.03em;
+    line-height: normal;
+    display: flex;
+    align-items: center;
+    background-color: #04aa6d;
+}
+.primary-button-create {
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: "Inter";
+    font-style: normal;
+    border: none !important;
+    padding: 6px 16px;
+    background-color: $primary-color;
+    color: #fff;
+    letter-spacing: 0.03em;
+    line-height: normal;
+    display: flex;
+    align-items: center;
+}
+ .p-dialog .divisionScreenMenuPopup{
+    height: 200px !important;
+}
+.switchText{
+    font-size: 15px;
+    font-weight: 700;
+}
+.dataTableLoaderCss{
+    width: 100% !important;
+}
+
+// .userSettings label{
+//     font-size: 12px;
+//    }
+@media screen and (max-width: 1707px) and (height: 960px) {
+   .search-icon-spinner{
+    position: absolute;
+    top: 30%;
+    right: 10px;
+    // transform: translateY(-50%);
+    color: #555; 
+    font-size: 1rem; 
+    cursor: pointer;
+   }
+
+    .userSettings label{
+    font-size: 10px;
+   }
+}
+
+@media screen and (max-width: 1875px) {
+    .userSettings label{
+    font-size: 10px;
+   }
+    .responsive-container {
+        padding: 0 15px; 
+        box-sizing: border-box; 
+        overflow-x: hidden; 
+    }
+
+    .p-datatable {
+        font-size: 0.4rem; /* Reduce font size for smaller resolutions */
+        width: 100%; /* Ensure table does not exceed container width */
+        overflow-x: auto; /* Enable scrolling inside the table if needed */
+    }
+    
+    .p-datatable th, .p-datatable td {
+        // max-width: 100px; /* Set maximum column width */
+        overflow: hidden; /* Hide overflow content */
+        text-overflow: ellipsis; /* Add ellipsis for long text */
+        white-space: nowrap; /* Prevent wrapping */
+    }
+
+}
+.vendorMasterIconCss{
+    display: flex;
+    justify-content: space-between;
+}
+.vendorNumCSS{
+    width: 70%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.txtUPDVal{
+    margin-left: 10px;
+    height: 37px;
+}
+.vmDate{
+    margin-left: 10px;
+}
+.MuiPopover-paper{
+    min-height: 20px !important;
+    max-height: 220px !important;
+}
+.ant-input-disabled {
+   color: #495057 !important;
+    font-size: 12px !important;
+    background: #f2f2f2 !important;
+}
+@media (max-width: 1536px) {
+  .datePick input.p-inputtext.p-component {
+    font-size: 15px !important; 
+  }
+
+  .p-dialog{
+  //  height: 620px !important;
+  }
+}

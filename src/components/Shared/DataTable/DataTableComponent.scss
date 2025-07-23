@@ -1,0 +1,342 @@
+@import '../../../assests/styles/pallets.scss';
+@import '../../../assests//styles/matetial.scss';
+
+.card {
+  border-radius: $miniFont*5px;
+  border-color: $border-color;
+}
+
+.searchFilter1 {
+  display: flex;
+  flex-direction: row;
+  gap: 1px;
+  height: 35px;
+  background-color: rgba(0, 0, 0, 0.07);
+  border: 1px solid #ededed;
+  border-radius: 30px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  margin-right: 2px;
+  padding-right: 10px;
+  padding-left: 10px;
+  align-items: center;
+}
+
+.filterSelect {
+  display: flex;
+  flex-direction: row;
+  // justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+}
+
+.filterSelect .p-dropdown {
+  background: none !important;
+}
+
+.filterSelect .p-dropdown:not(.p-disabled):hover {
+  border-color: none !important;
+}
+
+.filterSelect .p-dropdown {
+  border: none !important;
+}
+
+.filterSelect .p-dropdown-label {
+  font-weight: bold !important;
+}
+
+.scrollArrowContainer {
+  display: flex;
+  align-items: center;
+}
+
+.filtergrid {
+  display: flex;
+  flex-direction: row;
+  max-width: 100%;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  // display: flex;
+  //   flex-direction: row;
+  //   max-width: 1290px;
+  //   align-items: center;
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   gap: 5px;
+}
+
+.text-color {
+  color: $primary-color;
+}
+
+.selectFilters {
+  display: flex;
+  padding: 10px 3px;
+  align-items: end;
+  justify-content: end;
+  overflow: auto;
+}
+
+.Active-Class {
+  font-size: $miniFont*7px;
+  font-family: $font;
+  font-weight: $lightBold;
+  border-radius: $miniFont*10px;
+  border-color: $activeColor;
+  border: 1px solid $activeColor;
+  color: $activeColor;
+  padding: $miniFont*1px;
+  width: 75px;
+  display: inline-block;
+  text-align: center;
+}
+
+.inActive {
+  font-size: $miniFont*7px;
+  font-family: $font;
+  font-weight: $lightBold;
+  border-radius: $miniFont*10px;
+  border-color: $inActiveColor;
+  border: 1px solid $inActiveColor;
+  color: $inActiveColor;
+  padding: $miniFont*1px;
+  width: 75px;
+  display: inline-block;
+  text-align: center;
+}
+
+.globalSearch {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-left: auto;
+  width: 20%;
+}
+
+.multiButtons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  padding-right: 12px;
+}
+
+.fileDownloads {
+  padding-right: 30px;
+}
+
+.p-tieredmenu-root-list {
+  padding-left: 0 !important;
+  text-decoration: none !important;
+}
+
+.p-submenu-list {
+  padding-left: 0 !important;
+}
+
+.p-menuitem-link {
+  text-decoration: none !important;
+}
+
+.hamburger .p-button .p-button-label {
+  padding: 6px 6px 6px 6px !important;
+  background-color: none !important;
+}
+
+.hamburger .p-button {
+  background: none !important;
+  outline: none !important;
+  border: none !important;
+}
+
+.hamburger .p-button-icon {
+  color: black !important;
+}
+
+.downloadIcons {
+  height: 30px;
+  width: 30px;
+}
+
+.file-upload-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.file-upload-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+
+.file-upload-label {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  color: #007bff;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid #007bff;
+}
+
+.file-upload-wrapper:hover .file-upload-label {
+  background-color: #0056b3;
+}
+
+.filterIcon {
+  color: #0056b3;
+}
+
+.filter-Dropdown {
+  box-shadow: none;
+}
+
+.filter-Dropdown span.p-dropdown-label {
+  padding: 0;
+  font-size: $miniFont*7px;
+}
+
+.calField input.p-inputtext.p-component.p-inputtext.p-component {
+  border: none !important;
+  padding: 0px;
+}
+
+.calField button.p-datepicker-trigger.p-button.p-component.p-button-icon-only {
+  background: #ffffff !important;
+  color: black;
+  border: 1px solid white !important;
+  padding: 0px;
+}
+
+@media screen and (min-width: 480px) {
+  .display-manage {
+    width: 75%;
+  }
+}
+
+.display-manage {
+  flex-direction: column;
+}
+
+.filter-card {
+  height: 30px;
+  background-color: $secondary-color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $miniFont*5px;
+  padding: $miniFont*8.5px $miniFont*6px;
+  border-radius: $miniFont*10px;
+}
+
+.filter-value {
+  white-space: nowrap;
+  // width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chipCardWrap {
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+// .p-tieredmenu{
+//   top: 140px !important;
+// }
+
+.p-tieredmenu-root-list li {
+  border-bottom: 1px solid $tiredMenuborderBottom !important; 
+  font-size: 16px !important;
+  font-family: $font !important;
+  padding: 8px;
+  font-weight: 500;
+}
+
+.p-tieredmenu-root-list li:last-child{
+  border: none !important;
+}
+
+.last-frozen-column {
+  border-right: 1px solid $border-color;
+}
+
+.hamburger {
+  margin-bottom: $miniFont * 2.5px;
+}
+
+.p-multiselect.p-component.p-inputwrapper{
+  border-radius: 10px !important;
+}
+.p-multiselect .p-multiselect-label {
+padding: 0.3rem 0.75rem;
+}
+
+.p-multiselect-label .p-placeholder{
+  font-weight: 400;
+}
+// .custom-header {
+//   display: flex;
+//   align-items: center;
+// }
+
+.custom-header {
+  display: flex;
+  align-items: center;
+   word-wrap: break-word;
+  // word-break: break-word;
+  white-space: normal; /* Ensures that text can wrap */
+  overflow-wrap: break-word; /* Ensures long words will wrap */
+}
+
+
+.sort-icon {
+  color: #007ad9; 
+}
+
+.sort-icon.pi-sort-amount-up,
+.sort-icon.pi-sort-amount-down {
+  color: #007ad9; 
+}
+.p-sortable-column .p-sortable-column-icon {
+  display: none;
+}
+.querydataSpace{
+  margin-left: 4px;
+}
+// .p-datatable-table{
+//   width: auto !important;
+// }
+.error-message{
+  color: red;
+}
+
+
+.colSave .fix-button {
+  font-size: 0.875rem;         /* Prevent zoom-related growth */
+  min-width: 150px;
+  max-width: 160px;
+  height: 35px;
+  padding: 0.6rem 1.2rem;
+  white-space: nowrap;         /* Prevents multi-line */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1;
+  box-sizing: border-box;
+  width: 18%;
+
+}
+
+@media screen and (max-width: 1750px) and (min-width: 1500px) {
+  .globalSearch{
+    width: 25%;
+  }
+}

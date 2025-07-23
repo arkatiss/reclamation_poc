@@ -1,0 +1,453 @@
+@import '../styles/pallets.scss';
+
+/** input field **/
+input.p-inputtext.p-component {
+    padding: 0.35rem 0.75rem;
+    border-radius: 8px;
+}
+.datePick input.p-inputtext.p-component{
+    border-radius: 0;
+    border-top-left-radius: 8px;
+}
+
+.datePick .p-datepicker-trigger{
+    background-color: $primary-color;
+}
+
+/** input field **/
+
+/**** Prime Select Button ****/
+.p-selectbutton .p-button {
+    border: none;
+}
+
+.p-selectbutton.p-button-group.p-component {
+    border: 1px solid $border-color;
+    border-radius: $miniFont*4px;
+}
+
+.p-selectbutton .p-button.p-highlight {
+    color: $white !important;
+    background: $white !important;
+    border-color: $border-color !important;
+
+    pointer-events: none;
+    border-radius: $smallFont*2px;
+}
+
+.p-button:focus {
+    box-shadow: none;
+}
+
+.selectiveButton .p-button {
+    padding: $miniFont*2.5px;
+    font-family: $font;
+    font-size: $smallFont*3.5px;
+    font-weight: $lightBold;
+    border-radius: $smallFont*2px;
+    color: $black;
+    @media (min-width: 800px) and (max-width: 1800px){
+        padding: $miniFont*1.5px;
+        font-size: $smallFont * 3px; // Adjust the font size for smaller screens
+    }
+}
+
+.selectiveButton .p-button .p-button-label {
+    padding: $miniFont*2.5px $miniFont*5px;
+    background-color: $secondary-color;
+    border-radius: $miniFont*4px;
+    font-weight: $lightBold;
+}
+
+.p-selectbutton .p-button.p-highlight span.p-button-label.p-c {
+    background: $primary-color;
+    border-radius: $smallFont*2px;
+}
+
+.p-selectbutton .p-button:not(.p-disabled):not(.p-highlight):hover {
+    background-color: $white;
+    color: $black;
+    border-radius: $smallFont*2px;
+}
+
+thead.p-datatable-thead {
+    z-index: 999;
+    background: #e5eef7;
+}
+tbody, td, tfoot, th, thead, tr {
+    border-color: #e5eef7 !important;
+    border-style: solid !important;
+    border-width: 2px !important;
+}
+.p-frozen-column {
+     z-index: 99;
+     //padding: 2px 41px 9px 83px !important;
+}
+
+.p-datatable .p-paginator-bottom {
+    border-radius: 0px 0px 10px 10px;
+    border-width: 1px 0px 0px 0px;
+}
+
+.p-datatable-wrapper {
+  //  height: calc(100vh - 30vh);
+    overflow: auto;
+}
+
+tr.p-datatable-emptymessage {
+    height: calc(100vh - 311px);
+    text-align: center;
+}
+
+.p-datatable-emptymessage td {
+    text-align: center;
+}
+
+.p-datatable .p-datatable-thead>tr>th {
+    background-color: $secondary-color;
+    color: $tableHeaderFont;
+    font-size: $miniFont*7.5px;
+    font-family: $font;
+    font-weight: $bold;
+    padding: 0.4rem 1rem;
+    @media (min-width: 800px) and (max-width: 1800px){
+        font-size: $smallFont * 3.25px; // Adjust the font size for smaller screens
+    }
+}
+
+.p-datatable {
+    padding: $miniFont*5px;
+}
+
+tbody.p-datatable-tbody {
+    font-size: $miniFont*7px;
+    font-family: $font;
+}
+
+.p-datatable td {
+    max-width: 250px;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+    border-color: #efeded !important;
+    border-style: solid !important;
+    border-width: 2px !important;
+    padding: 0.4rem 1rem;
+    @media (min-width: 800px) and (max-width: 1800px){
+        font-size: $smallFont * 3px; // Adjust the font size for smaller screens
+    }
+}
+
+/**** Custom Prime InputSwitch ****/
+.p-inputswitch {
+    width: 1.75rem;
+    height: 1rem;
+}
+
+.p-inputswitch .p-inputswitch-slider:before {
+    background: $white;
+    width: 0.75rem;
+    height: 0.75rem;
+    left: 0.10rem;
+    margin-top: -0.4rem;
+    border-radius: 50%;
+    transition-duration: 0.2s;
+}
+
+.p-inputswitch.p-highlight .p-inputswitch-slider:before {
+    transform: translateX(0.67rem);
+}
+
+.p-inputswitch.p-highlight .p-inputswitch-slider {
+    background: $activeColor !important;
+}
+
+/**** Custom Prime InputSwitch ****/
+
+/* Custom styles for the PickList component */
+.p-picklist .p-picklist-header {
+    background: $white !important;
+    border: none !important;
+    padding: 0rem 1.25rem 1.25rem 1.25rem;
+    font-weight: 700;
+    text-align: center !important;
+
+}
+
+.picklistData .p-picklist-list-wrapper ul {
+    padding-left: 0rem !important;
+}
+
+.picklistData .p-picklist-source-controls.p-picklist-buttons {
+    display: none !important;
+}
+
+.picklistData .p-picklist-target-controls.p-picklist-buttons {
+    display: none !important;
+}
+
+.picklistData .p-picklist-buttons.p-picklist-transfer-buttons {
+    gap: 10px;
+
+}
+
+.picklistData .p-button .p-button-label {
+    padding: 0px !important;
+}
+
+.picklistData.p-button {
+    color: #388E3C;
+    background: none !important;
+    border: none !important;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 6px;
+}
+
+/* Custom styles for the PickList component */
+
+/* Custom DropDown */
+.tableDropDown .p-inputtext {
+    font-size: $miniFont*7px;
+    font-family: $font;
+    padding: 0 15px 0px 0px;
+    color: $primary-color;
+    font-weight: $bold;
+}
+
+.tableDropDown.p-dropdown {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.tableDropDown.p-dropdown svg.p-icon.p-dropdown-clear-icon {
+    outline: none;
+}
+
+.p-icon.p-dropdown-trigger-icon,
+.p-dropdown-clear-icon {
+    width: 12px;
+    height: 12px;
+}
+
+.column span.p-dropdown-label {
+    padding: 0.25rem 0.75rem;
+}
+
+/* Custom DropDown */
+.p-checkbox.p-highlight .p-checkbox-box {
+    border-color: #32A7E2;
+    background: #32A7E2;
+
+}
+
+.file-upload-container {
+    border: 2px dashed #101010;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.file-upload-label {
+    display: block;
+    cursor: pointer;
+}
+
+.fileUpload .file-upload-label {
+    color: #101010 !important;
+    border: 1px solid #ffffff !important;
+}
+
+.fileUpload .p-button {
+    color: #101010;
+    background: #fdfdfd;
+    border: 1px solid #101010;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 6px;
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+button.btnBrowse {
+    border: 1px solid #101010;
+    background: #ffffff;
+    color: #101010;
+    border-radius: 1px;
+    padding: 10px 18px 10px 20px;
+    border-radius: 17px;
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.p-inputtext {
+    padding: 0.4rem 0.75rem;
+    @media (min-width: 800px) and (max-width: 1800px){
+        font-size: $smallFont * 3px; // Adjust the font size for smaller screens
+    }
+}
+
+.p-dropdown {
+    box-shadow: none;
+    border-radius: 8px;
+    min-height: 2rem !important;
+}
+
+/*** checkbox background color change ***/
+.p-checkbox.p-highlight .p-checkbox-box {
+    background-color: $primary-color;
+    border-color: $primary-color;
+}
+
+/*** checkbox background color change ***/
+
+/*** textarea css start ***/
+textarea.p-inputtextarea {
+    box-shadow: none;
+}
+
+.p-inputtext:enabled:hover {
+    border-color: $border-color;
+}
+
+/*** textarea css end ***/
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.MuiMenu-paper.MuiMenu-paper.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper ul {
+    max-height: 300px;
+}
+
+.p-selectbutton .p-button {
+    transition: none !important;
+}
+
+/*** views-list button style ***/
+.views-list.p-button-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-inline-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+.views-list {
+    width: 148px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: "Inter";
+    border: 1px solid #D6D6D6 !important;
+    padding: 6px 16px !important;
+    background-color: $white;
+    letter-spacing: 0.03em;
+    line-height: normal;
+    color: #6c757d;
+}
+
+.views-list .text-ellipsis {
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-inline-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    max-width: 70px;
+}
+
+.views-list .p-button-label {
+    text-align: left;
+}
+
+.views.p-overlaypanel .p-overlaypanel-content {
+    padding: 0;
+}
+
+.list-menu.p-panelmenu .p-panelmenu-header .p-panelmenu-header-content {
+    background-color: $white;
+    border: none;
+}
+
+.list-menu.p-panelmenu .p-panelmenu-header .p-panelmenu-header-content .p-panelmenu-header-link {
+    padding: 0.7rem;
+    color: $black;
+    font-size: 14px;
+    font-family: "Inter";
+    text-decoration: none;
+}
+
+.create-view-button {
+    background-color: $white;
+    padding: 8px 16px;
+    border-radius: 100px;
+    border: 1px solid #D6D6D6;
+    font-family: Inter;
+    font-size: 15px;
+    font-weight: 400;
+    color: #242533;
+}
+
+.dd-List .p-inputtext {
+    // padding: 0.45rem 0.75rem;
+    padding: 0.3rem 0.5rem;
+    font-size: $miniFont*7px;
+    width: 96% !important;
+}
+.autoWidth {
+    width: 96% !important;
+    height: 2rem;
+}
+.p-dialog {
+    border-radius: 10px !important;
+    overflow: hidden;
+}
+.p-inputtext:enabled:focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: none;
+}
+
+.calender-css input.p-inputtext.p-component {
+    width: 100%;
+    border-radius: 8px 0px 0px 8px;
+    height: 2rem;
+}
+
+.calender-css button.p-datepicker-trigger.p-button.p-component.p-button-icon-only {
+    border-radius: 0px 8px 8px 0px;
+    background-color: $primary-color;
+}
+span.p-column-resizer::after {
+    content: ' \2502 ';
+    position: relative;
+    top: 20%;
+    color: #858585;
+    /* bottom: 2%; */
+    font-weight: 600;
+}
+
+.auto-complete input {
+    width: 100%;
+}
+
+.custom-multi-select .p-multiselect-token-label {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.ant-btn.selectedStatusType{
+    background-color: $primary-color !important;
+    color: #ffffff !important;
+}
+.p-dropdown-item{
+  min-height: 40px !important;
+}
+// .p-datatable td.p-frozen-column {
+//     background-color: #ffffff !important;
+//     border: none !important;
+// }

@@ -1,0 +1,28 @@
+@import '../assests/styles/pallets.scss';
+
+.sideMenu li {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 5px;
+    font-family: Inter;
+    font-size: $smallFont*3.5px;
+    font-weight: $bold;
+    padding: 10px;
+    color: #fff;
+    cursor: pointer;
+    @media (min-width: 800px) and (max-width: 1800px){
+        font-size: $smallFont*3px;
+        padding: $miniFont*2.5px; // Adjust the font size for smaller screens
+    }
+}
+
+.active-menu {
+    background-color: $white;
+    color: $primary-color !important;
+    border-radius: 8px;
+    font-weight: 500;
+}
+.disable {
+      opacity: 0.5;
+}

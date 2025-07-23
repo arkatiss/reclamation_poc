@@ -1,0 +1,134 @@
+@import '../assests/styles/pallets.scss';
+
+.logoText {
+    padding: 0;
+    color: $white;
+    margin: 0;
+    font-family: "Inter";
+    font-size: $miniFont*9px;
+    font-style: normal;
+    font-weight: $bold;
+    @media (min-width: 800px) and (max-width: 1800px){
+        font-size: $miniFont*8px; // Adjust the font size for smaller screens
+    }
+}
+
+.sideMenuLogo {
+    width: 42px;
+    height: 38px;
+}
+
+.ant-layout .ant-layout-sider.layoutSider {
+    position: relative;
+    background: $primary-color;
+    width: $largeFont*10.83px !important;
+    min-width: $largeFont*10.84px !important;
+    max-width: $largeFont*10.84px !important;
+    @media (min-width: 800px) and (max-width: 1800px){
+        min-width: $largeFont*9.9px !important;
+        max-width: $largeFont*9.9px !important;
+    }
+}
+
+.user-profile {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    padding: 0px 30px;
+}
+
+.content {
+    background: $white;
+    overflow: auto;
+}
+
+.settingsText {
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    color: $white;
+    cursor: pointer;
+}
+
+.chat-bot-icon {
+    background-color: $primary-color;
+    border-radius: 50px;
+    border: 2px solid $white;
+    box-shadow: 0px 10px 20px 0px #0000001A;
+    position: fixed;
+    bottom: 20px;
+    right: 46px;
+    z-index: 99;
+    padding: 10px;
+}
+
+.chat-section {
+    position: fixed;
+    right: 46px;
+    z-index: 99;
+    bottom: 57%;
+    height: 0;
+}
+
+.mini-chat-card {
+    background-color: $white;
+    box-shadow: 10px 10px 25px 0px #0000000D;
+    border: 2px solid #00000026;
+    max-width: 360px;
+    min-width: 350px;
+    border-radius: 25px;
+}
+
+.mini-chat-header {
+    background-color: $primary-color;
+    color: $white;
+    font-family: Inter;
+    font-size: $smallFont*4px;
+    font-weight: $bold;
+    padding: $miniFont*6px $miniFont*12px;
+    border-radius: 25px 25px 0px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mini-chat-content {
+    height: 44vh;
+    padding: $miniFont*6px $miniFont*12px;
+    display: flex;
+    overflow: auto;
+    flex-direction: column;
+    gap: $smallFont*5px;
+}
+
+.mini-chat-footer {
+    display: flex;
+    align-items: center;
+    background: #1E46720F;
+    padding: $miniFont*3px $miniFont*12px;
+    border-radius: 0px 0px 25px 25px;
+}
+
+.mini-chat-input {
+    width: 100%;
+    display: flex;
+    background-color: $white;
+    border: 1px solid #00000026;
+    padding: 5px;
+    border-radius: 50px;
+}
+
+.img-icon-css {
+    height: 25px;
+    @media (min-width: 800px) and (max-width: 1800px){
+        height: 20px; // Adjust the font size for smaller screens
+    }
+  }
+
+  @media (max-width: 1536px) and (max-height: 960px) {
+  .user-profile{
+    position: relative;
+    top: 1%;
+  }
+}

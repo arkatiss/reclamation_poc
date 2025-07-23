@@ -1,0 +1,729 @@
+@import '../src/assests/styles/pallets.scss';
+@import '../src/assests/styles/primeng.scss';
+@import '../src/assests/styles/matetial.scss';
+
+.App {
+  text-align: center;
+}
+
+ul {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px lightcyan;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #aeaeae;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 3px;
+}
+
+.grid ::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+.txtDialog{
+  font-family: $font;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: center;
+
+}
+.grid *:hover::-webkit-scrollbar {
+  width: 5px;
+  height: 10px;
+}
+.gridClass ::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+.gridClass *:hover::-webkit-scrollbar {
+  width: 5px;
+  height: 10px;
+}
+.gridClass th{
+  background-color: #fff !important;
+  padding: 0 !important;
+}
+.custom-clause-table th {
+  background-color: $secondary-color;
+  color: $primary-color !important;
+}
+
+.custom-clause-table {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid $border-color;
+}
+
+.custom-clause-table th {
+  padding: 10px;
+  font-size: $miniFont*7px;
+}
+
+.custom-clause-table td {
+  padding: 10px;
+  font-size: $miniFont*7px;
+}
+
+
+
+
+
+.custom-picklist {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.picklist-column {
+  width: 30%;
+}
+
+.pick-ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ccc;
+  height: 180px;
+  overflow-y: auto;
+  border-radius: 8px;
+}
+
+.pick-ul-columnsList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ccc;
+  height: 52vh;
+  overflow-y: auto;
+  border-radius: 8px;
+}
+
+.pick-li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+.pick-li:hover {
+  background-color: #f5f5f5;
+}
+
+.pick-li.selected {
+  background-color: #e3f2fd;
+  // color: white;
+}
+
+.picklist-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.picklist-buttons button {
+  margin: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+/** css for home component -- right card **/
+.right-card {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $secondary-color;
+  padding: $largeFont*4px $largeFont*2.67px;
+  border-radius: $smallFont*5px;
+  border: $miniFont*0.5px solid $primary-color;
+  flex-direction: column;
+}
+
+/** css for home component -- chat card **/
+.chat-card {
+  // background-color: $white;
+  // box-shadow: 10px 10px 25px 0px #0000000D;
+  // border: 2px solid #00000026;
+  // max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* Adjust as needed */
+  max-width: 500px;
+  background-color: white;
+  box-shadow: 10px 10px 25px 0px #0000000D;
+  border: 2px solid #00000026;
+
+}
+
+.chat-header {
+  background-color: $primary-color;
+  color: $white;
+  font-family: $font;
+  font-size: $smallFont*5.5px;
+  font-weight: $bold;
+  padding: $miniFont*6px $miniFont*12px;
+}
+
+// .chat-content {
+//   height: 80.3vh;
+//   padding: $miniFont*3px $miniFont*12px;
+//   display: flex;
+//   justify-content: end;
+//   overflow: auto;
+//   flex-direction: column;
+//   gap: $smallFont*5px;
+// }
+.chat-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+  padding: 3px 12px;
+  gap: 5px;
+}
+
+
+.chat-footer {
+  display: flex;
+  align-items: center;
+  background: #1E46720F;
+  padding: $miniFont*3px $miniFont*12px;
+}
+
+.bot-img-icon {
+  background: $primary-color;
+  padding: 5px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.system-chat-section {
+  word-break: break-word;
+  max-width: 100%;
+  border: 1px solid #00000026;
+  background: #F7F7F7;
+  font-family: $font;
+  font-size: $smallFont*3.5px;
+  padding: $miniFont*5px $miniFont*10px;
+  border-radius: $miniFont*9px $miniFont*9px $miniFont*9px $miniFont*1px;
+}
+
+.user-chat-section {
+  word-break: break-word;
+  max-width: 100%;
+  border: 1px solid #00000026;
+  background: #F7F7F7;
+  font-family: $font;
+  font-size: $smallFont*3.5px;
+  padding: $miniFont*5px $miniFont*10px;
+  border-radius: $miniFont*9px $miniFont*9px $miniFont*1px $miniFont*9px;
+}
+
+.chat-input {
+  width: 100%;
+  display: flex;
+  background-color: $white;
+  border: 1px solid #00000026;
+  padding: 10px;
+  border-radius: 50px;
+}
+
+.inputField {
+  border: none;
+}
+
+:where(.css-dev-only-do-not-override-1pg9a38).ant-input-outlined:focus {
+  border-color: #00000026;
+  box-shadow: none;
+}
+
+/**
+@remarks
+CSS styles for Settings component Start
+@author Amar
+*/
+
+.lblGridSettings {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.lblSubHeadings {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.lblDefaultSettings {
+  border: 1px solid;
+  padding: 0.4rem;
+  border-radius: 8px;
+}
+
+.alignmentBtns {
+  border: 1px solid $primary-color;
+  padding: 1px 10px 4px 10px;
+  margin-left: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+
+.alignmentBtnactive {
+  background-color: $primary-color !important;
+  color: $white !important;
+}
+
+.switchSettings {
+  height: 1rem;
+  position: relative;
+  top: 3px;
+  left: 6px;
+}
+
+/**
+@remarks
+CSS styles for Settings component End
+@author Amar
+*/
+
+
+
+
+
+.drag-drop-picklist {
+  display: flex;
+}
+
+.source-container h3 {
+  font-size: 14px;
+  text-align: center;
+  font-family: $font;
+  font-weight: $bold;
+  color: $black;
+  line-height: 20px;
+}
+
+.targets-container h3 {
+  font-size: 14px;
+  text-align: center;
+  font-family: $font;
+  font-weight: $bold;
+  color: $black;
+  line-height: 20px;
+}
+
+.source-container,
+.targets-container {
+  width: 50%;
+  min-height: 300px;
+  // border: 1px solid #ccc;
+  // padding: 10px;
+  // background-color: #f9f9f9;
+  // position: relative;
+}
+
+.draggable-item,
+.dropped-item {
+  padding: 8px;
+  margin: 5px 0;
+  // background-color: #e0e0e0;
+  // border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+// .drop-container:hover {
+//   background-color: #e0f7fa;
+// }
+
+.selected {
+  background-color: #a5d6a7;
+}
+
+.pick-button {
+  margin-left: 10px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.pick-button:hover {
+  background-color: #d32f2f;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.next-buttons {
+  color: $primary-color;
+}
+
+.imgValueMap {
+  margin-left: 36rem;
+}
+
+.valueMapText {
+  color: $primary-color;
+}
+
+/**
+@remarks
+CSS styles for Value map component start
+@author Amar
+*/
+.valueMapHeading {
+  font-size: 15px;
+  background: $primary-color;
+  padding-right: 8px;
+  padding-left: 10px;
+  padding-top: 3px;
+  padding-bottom: 4px;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.valueMapImg {
+  margin-top: 10rem;
+}
+
+.imgAgrmnt {
+  margin-left: 10px;
+}
+
+/**
+@remarks
+CSS styles for Value map component end
+@author Amar
+*/
+
+.login-card {
+  background-color: #2e2e38f2 !important;
+  border-radius: 40px !important;
+  opacity: .7;
+}
+
+.right-arrow-icon {
+  background: #383842;
+  padding: $miniFont*3px;
+  border-radius: $largeFont*4.16%;
+  color: $white;
+  font-weight: $bold !important;
+  font-size: $miniFont*6px;
+}
+
+.password-field {
+  overflow: hidden;
+  height: 0;
+  opacity: 0;
+  transition: height 0.5s ease, opacity 0.5s ease; /* Transition over 0.5 seconds */
+}
+
+.animate-show {
+  animation: fadeSlideIn 2s ease forwards;
+}
+
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px); /* Start slightly above */
+    height: 0;
+  }
+  50% {
+    opacity: 0.5;
+    height: auto;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* End at normal position */
+    height: auto;
+  }
+}
+
+.custom-plus-icon {
+  font-size: $miniFont*6px;
+    color: $white;
+    background: $primary-color;
+    padding: $miniFont*3px;
+    border-radius: $largeFont*4.16%;
+    font-weight: $bold;
+}
+.form-auto-complete input.p-autocomplete-input.p-inputtext.p-component{
+  width: 100% !important;
+}
+.btnReject {
+  background: none;
+  color: $primary-color;
+  border: 1px solid $primary-color;
+  border-radius: 9px;
+  margin-right: 10px;
+}
+// .nextIconRight{
+//   position: relative;
+//   left: 32rem;
+// }
+// .prevIconRight{
+//   position: relative;
+//   right: 22rem;
+// }
+
+.ellipsis .MuiSelect-select {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+.fieldNameLink {
+  color: $primary-color;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.fieldNameLinkError{
+  color: #0e9706;
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: 500;
+}
+.floatEnd{
+ float: inline-end;
+}
+.disbaleFileName {
+  color: #a9a9a9;
+  cursor: not-allowed;
+}
+.processText{
+  color: #b7871c;
+}
+.reqTest {
+  color: #1976d2; // requested color (blue shade)
+  font-size: 12px;
+  font-weight: bold;
+
+}
+.completedText {
+  color: green;
+  font-size: 12px;
+  font-weight: bold;
+}
+.FailedText {
+  color: red;
+  font-size: 12px;
+  font-weight: bold;
+}
+// .sorted-column {
+//   background-color: #f0f8ff;
+//   font-weight: bold;
+// }
+.loaderCss{
+  margin-left: 7px;
+}
+.numeric-input::-webkit-outer-spin-button,
+.numeric-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0; 
+} 
+.user-icons{
+  cursor: pointer;
+}
+.valueMapTitle{
+  margin-top: 2.2rem !important;
+  padding-left: 1.3rem !important;
+}
+.headerCss{
+    display: inline-block;
+    width: 85%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.ant-spin .ant-spin-dot-spin {
+  color: white;
+}
+.disableBtn{
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.home-page {
+  height: 96vh;
+}
+b.home-page-check {
+    color: #4f8fcb;
+    font-size: 25px;
+}
+.ant-layout-sider-children{
+  overflow: auto !important;
+}
+
+.highlight-changed-td {
+     background-color: #efbdbb; /* light yellow */
+      color: #000; /* black text for contrast */
+  font-weight: 500;
+}
+.columns-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  height: 500px; /* Fixed height */
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* Shared box styles */
+.column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  height: 100%; /* Match parent height */
+  overflow: hidden;
+}
+
+/* Scrollable list in Available Columns */
+.column-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+/* Scrollable Primary/Secondary drop zones */
+.section {
+  flex: 1;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.section ul.pick-ul {
+  flex: 1;
+  overflow-y: auto;
+  margin-top: 8px;
+  padding-right: 5px;
+}
+
+/* Item styles */
+li.pick-li {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  background-color: #f9f9f9;
+}
+
+li.pick-li:hover {
+  background-color: #eef;
+}
+
+
+
+/* Responsive stack layout */
+@media (max-width: 768px) {
+  .columns-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .column {
+    height: 400px;
+  }
+
+  .buttons {
+    flex-direction: row;
+    justify-content: center;
+    margin: 10px 0;
+  }
+}
+.custom-td {
+  margin: 10px !important;
+}
+.custom-td td{
+  max-width: 200px;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  border-color: #efeded !important;
+  border-style: solid !important;
+  border-width: 1px !important;
+  padding: 0.4rem 1rem;
+ // display: -webkit-box; /* for multiline clamp */
+}
+.custom-td thead > tr > th {
+   background-color: #e5eef7;
+ //   color: #364049;
+    font-size: 15px;
+    font-family: "Inter";
+    font-weight: 600;
+    padding: 0.4rem 1rem;
+    border-width: 1px !important;
+}
+.custom-td thead,
+.custom-td tfoot {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-width: 1px !important;
+}
+
+.custom-td tbody {
+    display: block;
+    overflow-y: auto;
+    width: 100%;
+    height: calc(100vh - 320px)
+}
+.valuemap-grid tbody {
+    display: block;
+    overflow-y: auto;
+    width: 100%;
+    height: calc(100vh - 635px);
+}
+
+
+/* Ensure column alignment */
+.custom-td thead tr,
+.custom-td tbody tr,
+.custom-td tfoot tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-width: 0px !important;
+}
+
+.custom-td th,
+.custom-td td {
+    padding: 10px 20px;
+    text-align: left;
+   // white-space: nowrap;
+}
