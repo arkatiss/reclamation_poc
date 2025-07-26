@@ -103,7 +103,7 @@ export const DynamicForm = (props) => {
       const updatedConfigArray = handleMissingFields(props.editRecords, props.insertFields);
       setRecords(props.editRecords);
       if(backUpRecords.length === 0){
- setBackUpRecords(JSON.parse(JSON.stringify(props.editRecords)));
+      setBackUpRecords(JSON.parse(JSON.stringify(props.editRecords)));
       }
       
       
@@ -460,6 +460,7 @@ export const DynamicForm = (props) => {
             ...field
         };
     });
+    
 Object.keys(hiddenFields).forEach((item) => {
     hiddenFields[item]?.forEach((sub) => {
         sub?.VALUES.forEach((s) => {
@@ -488,7 +489,8 @@ const finalFields = Object.values(finalFieldsMap);
       const updatedData = newFields?.map(item => 
         item.field === 'id' ? { ...item, visibility: false } : item
     );
-checkRuleFieldsEdit(updatedData)
+checkRuleFieldsEdit(updatedData);
+
     }else if(navObj?.PARENT_MODULE === 'rulesSetup' && navObj?.CHILD_MODULE === "Vendor Costing"){
       const removeReqList = ['AP_VENDOR', 'FACILITY', 'GL_CODE', 'MASTER_UPC'];
       // Find which fields in removeReqList have a value
@@ -514,6 +516,7 @@ checkRuleFieldsEdit(updatedData)
       }
       setInsertFields(updatedFieldsWithRequired);
     } else{
+      
       let disbaleRules = true;
       let updatedRulesData = [...newFields];
       newFields?.map((i) =>{
@@ -857,7 +860,7 @@ checkRuleFieldsEdit(updatedData)
           
           return field;
         });
-        debugger
+        
       
         // 4. Special case: if field is GRP_EFFECTIVE_END_DATE, update STORE_EFFECTIVE_END_DATE where missing
         if (updatedFields[index]?.field === 'GRP_EFFECTIVE_END_DATE') {

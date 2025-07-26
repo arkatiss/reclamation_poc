@@ -13,6 +13,7 @@ import { Checkbox } from 'primereact/checkbox';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { PrimeIcons } from 'primereact/api';
 import SmartSearch from './smartSearch';
+import EditRecord from './editRecord';
 import roles from '../../../roles';
 import {ColumnGrouping} from '../picklist';
 import {BulkCreate, Crudlabels} from './BulkCrud/index'
@@ -20,18 +21,20 @@ import { GridBodyRenderer } from './GridBodyCellRender';
 import { SavedColOrders } from '../savedColumnOrders';
 import DialogBox from '../Dialog-Box/DialogBox';
 import {  useDispatch, useSelector } from 'react-redux';
-import { FormControl, FormControlLabel, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { FormControl,InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { Toast } from 'primereact/toast';
 import { bulkDelete, changeIsFilter,bulkEdit, clearBulkEditRecords, clearBulkCreateRecords, bulkCreateResponse, bulkEditResponse,getEditGridView } from '../../../slices/columnSelection';
 import { useGridSearchDataMutation, useGridViewEditMutation, useGridViewInsertMutation, useGridViewRetrieveMutation, useLookUpSearchMutation } from '../../../services/common';
 import { getLookUpPayLoad } from '../lookupPayload';
 import DatatableLoader from './datatableLoader';
-import { MultiSelect } from 'primereact/multiselect';
 import { AutoComplete } from 'primereact/autocomplete';
 import { resetAddFilObj } from '../../../slices/filters';
 import { InputSwitch } from 'primereact/inputswitch';
+import { useUtils } from './utils';
+
 
 const PrimeDataTable = forwardRef((props, ref) => {
+const { fetchSuggestions } = useUtils();
   const updatedRoleOptions = props?.roleOptions?.map(role => ({
     ...role,
     key: role.name
@@ -104,6 +107,7 @@ const [filters, setFilters] = useState({
     const [savedViews,setSavedViews] = useState([]);
     const [chipName,setChipName] = useState(null);
     const [permissionObj,setPermissionObj] = useState({});
+    const [insertFields,setInsertFields] = useState([]);
  
    /**
   @remarks
@@ -144,6 +148,9 @@ const [filters, setFilters] = useState({
     }
 
    },[division]);
+   useEffect(()=>{
+      setInsertFields(props?.insertFields)
+   },[props?.insertFields])
   useEffect(()=>{
      
  if(filteredGridOptions?.length > 0){
@@ -196,13 +203,42 @@ const pageChangeExplod = (direction)=>{
   };
 
   const inputRefs = useRef({}); 
-  const renderEditableField = (field, rowData, index) => {
-    return editingRowIndex === index ? (
-      <InputText value={editRowData[field]} onChange={(e) => onInputChange(e, field)}   ref={el => (inputRefs.current[field] = el)}/>
-    ) : (
-      rowData[field]
-    );
+  // const renderEditableField = (field, rowData, index) => {
+  //   return editingRowIndex === index ? (
+  //     <InputText value={editRowData[field]} onChange={(e) => onInputChange(e, field)}   ref={el => (inputRefs.current[field] = el)}/>
+  //   ) : (
+  //     rowData[field]
+  //   );
+  // };
+  const setEditing = (index, field) => {
+    
+  setEditingRowIndex(index);
+
+};
+  const updateRowData =  (rowIdx,fieldValue,fieldName) => {
+    setProducts(prev => prev.map((row, i) => i === rowIdx ? { ...row, [fieldName]: fieldValue } : row));
   };
+  const fetchLookUp = (field, query, index, rowData) =>{
+    fetchSuggestions(field, query,null, insertFields,setInsertFields);
+  }
+  const renderEditableField = (field, rowData, index) => {
+  
+    const value = rowData[field.field || ''];
+  // handleRowClickFun({data: rowData}, insertFields, setInsertFields);
+    let rowDataValue = {...field, value: value};
+
+
+    const handleBlur = () => {
+      setEditingRowIndex(null);
+
+    };
+    return (
+      <div>
+        <EditRecord field={rowDataValue} insertFields={insertFields} setInsertFields={setInsertFields}  fetchSuggestions={fetchLookUp} index={index} updateRowData={updateRowData}/>
+      </div>
+    )
+  };
+
   const addFilterObject = () => {
     
     setMsg('Loading....')
@@ -495,12 +531,12 @@ try {
   
   // myList = resultSet?.map((item) => ({ name: item })) || [];
 
-
+  
 
  let finalObj = resultSet?.map((i) => ({
   name: i?.KEY + (i?.VALUE ? '-' : '') + i?.VALUE,
   key: navObj?.PARENT_MODULE === 'scanSetup'
-    ? i[lookupPayLoad?.columnName?.toUpperCase()]
+    ? i.hasOwnProperty(lookupPayLoad?.columnName?.toUpperCase()) ? i[lookupPayLoad?.columnName?.toUpperCase()] : i.KEY
     : i?.KEY
 })) || [];
 
@@ -1577,13 +1613,28 @@ const onGlobalFilterChange = (e) => {
         global: { value, matchMode: FilterMatchMode.CONTAINS }
     }));
   };
-  const gridBody = (field, index) => {
+
+  const gridBody = (item, index) => {
   return (rowData) => {
+   // console.log("gridBody", editingRowIndex, index, editingField,item.field);
+     const isEditing = editingRowIndex === index;
+    
     return (
       <GridBodyRenderer
-        field={field}
+      activeLabel={activeLabel}
+      productColumns={productColumns}
+        field={item?.field}
+        item={item}
+        editingRowIndex={editingRowIndex}
         rowData={rowData}
         index={index}
+        isEditing={isEditing}
+        fieldTypeMap={{ [item.field]: item.type }} 
+        inputType={item?.type} // <-- pass this
+        renderEditableField={renderEditableField}
+        insertFields={insertFields}
+        setInsertFields={setInsertFields}
+        setEditing={setEditing}
         handleRulesDef={handleRulesDef}
         exploded={exploded}
         activeButtonTemplate={activeButtonTemplate}
@@ -1607,8 +1658,8 @@ const onGlobalFilterChange = (e) => {
         getActionClear={getActionClear}
         getCheckBoxValueMap={getCheckBoxValueMap}
         getVendorProfileView={getVendorProfileView}
-                  renderEditableField={renderEditableField} 
-editingRowIndex={editingRowIndex} 
+                 
+
 handleIconClick={props?.openStorePopup}
 selectAction= {selectAction}
 getSelectionList = {getSelectionList}
@@ -1651,7 +1702,7 @@ const rowExpansionTemplate = (data) => {
         bodyStyle={{ maxWidth: item?.width ? `${item.width}px` : undefined }}
         width={`${item?.width}px`}
         style={{ maxWidth: item?.width }} field={item?.field} header={item?.header} 
-        body={ gridBody(item.field) }>
+        body={ gridBody(item) }>
         </Column>
       )
     })}
@@ -2190,6 +2241,17 @@ const handleColumnChangeVM = (e) => {
   }));
   setVmColumnType(selectedItem.type);
 };
+const [editingCell, setEditingCell] = useState(null);
+const handleCellDoubleClick = (e) =>{
+ setEditingCell({ rowIndex: e.rowIndex, field: e.field });
+}
+ const isCellBeingEdited = (options) => {
+        return (
+            editingCell &&
+            editingCell.rowIndex === options.rowIndex &&
+            editingCell.field === options.field
+        );
+    };
 const DataTableContent = () => {
   const isItemSummary = navObj?.CHILD_MODULE === 'Item Summary';
   const isExplodedRule = navObj?.CHILD_MODULE === 'Exploded Rules';
@@ -2206,7 +2268,7 @@ const DataTableContent = () => {
       frozen: item?.frozen,
       header: renderHeader(item?.field, item?.header, item?.width),
       className: item.frozen && isFilter?.filterState === null && index === lastFrozenIndex ? "last-frozen-column" : "",
-      body: (rowData, columnProps) => gridBody(item?.field, columnProps.rowIndex)(rowData),
+      body: (rowData, columnProps) => gridBody(item, columnProps.rowIndex)(rowData),
     };
 
     if (isValueMaps) {
@@ -2225,6 +2287,7 @@ const DataTableContent = () => {
       headerStyle={{ maxWidth: item?.width ? `${item.width}px` : undefined ,wordWrap: item?.width ? 'break-word':'',  whiteSpace: item?.width ? 'normal' : '',   overflow: item?.width ? 'hidden'  :''    }}
         bodyStyle={{ maxWidth: item?.width ? `${item.width}px` : undefined }}
         width={`${item?.width}px`}
+        onDoubleClick={(e) => handleCellDoubleClick({ ...e, field: 'name' })}
         sortable
         style={{ maxWidth: item?.width }}
       />
@@ -2355,7 +2418,7 @@ const DataTableContent = () => {
       // ) : 
       
       (
-        columns.map(renderColumn)
+        insertFields?.map(renderColumn)
       )}
 
       {/* Render actions for "Customer Groups" */}

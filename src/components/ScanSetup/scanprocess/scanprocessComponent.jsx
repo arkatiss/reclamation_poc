@@ -18,6 +18,7 @@ const ScanProcessComponent = forwardRef((props, ref) => {
   const [auditColumns,setAuditColumns] = useState([]);
   const [filterCols,setFilterCols] = useState([]);
   const [totalRecords,setTotalRecords] = useState('');
+  const [insertFields, setInsertFields] = useState([]);
   const isFilter = useSelector((state)=>state?.columnSelection?.isFilter)
   const [getScanProcessList, {  dataResult, isSuccess, isLoading, isFetching, error }] = useGetScanProcessListMutation();
   const [getAuditScanProcess, {}] = useGetScanAuditMutation();
@@ -113,10 +114,17 @@ return (
   }, [isFilter]);
  /** @remarks Function fto get Scan process data */
   const fetchScanProcessData = async (Payload) => {
+    
     try {
       let result = await getScanProcessList(Payload).unwrap();
-      if(result?.status_code === 200 || result?.res_status){
+      if(result?.status_code === 200 || result?.res_status === 'True'){
       const filteredData = result?.columns?.filter(item => item.filter);
+      debugger
+         let createData = result?.columns?.filter(item => item.create);
+      createData = createData.map((item)=>{
+        return {...item, visibility:true}
+      })
+      setInsertFields(createData);
       setFilterCols(filteredData);
       setRowData(result?.result_set);
       if (props.onRowDataChange) {
@@ -157,7 +165,7 @@ return (
 return (
 <div>
 <Toast ref={toast} />
-    <PrimeDataTable isLoading={isLoading} columns={columns} filterCols={filterCols} data={rowData} menu={props.menu} paginator={true}  selectionMode={'multiple'} handleAuditPopUp={handleAuditPopUp} height={33} totalRecords={totalRecords} pageSort={onSort} pageChange={pageChange}/>
+    <PrimeDataTable isLoading={isLoading} columns={columns} insertFields={insertFields} filterCols={filterCols} data={rowData} menu={props.menu} paginator={true}  selectionMode={'multiple'} handleAuditPopUp={handleAuditPopUp} height={33} totalRecords={totalRecords} pageSort={onSort} pageChange={pageChange}/>
     {auditPopup &&
     <DialogBox header='Audit Data' content={auditPopUpDetails()} style={{width:'60vw'}} onHide={closeAuditPopup} selectionMode={null}/>
     } 
