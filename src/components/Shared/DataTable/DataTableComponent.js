@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
+import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle, useCallback } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Dropdown } from 'primereact/dropdown';
@@ -17,7 +17,7 @@ import EditRecord from './editRecord';
 import roles from '../../../roles';
 import {ColumnGrouping} from '../picklist';
 import {BulkCreate, Crudlabels} from './BulkCrud/index'
-import { GridBodyRenderer } from './GridBodyCellRender';
+import  GridBodyRenderer  from './GridBodyCellRender';
 import { SavedColOrders } from '../savedColumnOrders';
 import DialogBox from '../Dialog-Box/DialogBox';
 import {  useDispatch, useSelector } from 'react-redux';
@@ -108,7 +108,8 @@ const [filters, setFilters] = useState({
     const [chipName,setChipName] = useState(null);
     const [permissionObj,setPermissionObj] = useState({});
     const [insertFields,setInsertFields] = useState([]);
- 
+    const [gridColumns,setGridColumns] = useState([]);
+    
    /**
   @remarks
   This useEffect is to get permissions for a division
@@ -215,9 +216,19 @@ const pageChangeExplod = (direction)=>{
   setEditingRowIndex(index);
 
 };
-  const updateRowData =  (rowIdx,fieldValue,fieldName) => {
-    setProducts(prev => prev.map((row, i) => i === rowIdx ? { ...row, [fieldName]: fieldValue } : row));
-  };
+const updateRowData = (rowIdx, fieldValue, fieldName) => {
+  
+  setProducts(prev => {
+    const oldRow = prev[rowIdx];
+    if (oldRow[fieldName] === fieldValue) return prev;
+
+    const updatedRow = { ...oldRow, [fieldName]: fieldValue };
+    const newRows = [...prev];
+    newRows[rowIdx] = updatedRow;
+    return newRows;
+  });
+};
+
   const fetchLookUp = (field, query, index, rowData) =>{
     fetchSuggestions(field, query,null, insertFields,setInsertFields);
   }
@@ -238,6 +249,18 @@ const pageChangeExplod = (direction)=>{
       </div>
     )
   };
+  useEffect(() => {
+    if(productColumns?.length > 0) {
+  // Merge productColumns with insertFields: if a column in productColumns matches a field in insertFields, update it with insertField's data; otherwise, keep the productColumn as is.
+  let gridData = productColumns.map((col) => {
+    const match = insertFields?.find((item) => item?.field === col?.field);
+    return match ? { ...col, ...match } : col;
+  });
+      console.log(gridData);
+      console.log(productColumns)
+      setGridColumns(gridData);
+    }
+  },[productColumns])
 
   const addFilterObject = () => {
     
@@ -1149,7 +1172,7 @@ useEffect(()=>{
       //  
       if(prodCols?.current){
         const cols = prodCols.current;
-        setProductColumns(cols)
+        setProductColumns(cols);
       } 
       const columns = props?.columns?.map(column => column?.field);
       initFilters(columns);
@@ -1173,10 +1196,7 @@ useEffect(()=>{
       
     } 
       else{
-        
-        const testFlag = prodCols?.current && !props?.storeView;
-       
-          setProductColumns((prodCols?.current && !props?.storeView) ? prodCols?.current : props?.columns)
+          setProductColumns((prodCols?.current && !props?.storeView) ? prodCols?.current : props?.columns);
         // setProductColumns(props?.columns)
     }
     
@@ -1614,10 +1634,10 @@ const onGlobalFilterChange = (e) => {
     }));
   };
 
-  const gridBody = (item, index) => {
+  const gridBody = useCallback((item, index) => {
   return (rowData) => {
    // console.log("gridBody", editingRowIndex, index, editingField,item.field);
-     const isEditing = editingRowIndex === index;
+    // const isEditing = editingRowIndex === index;
     
     return (
       <GridBodyRenderer
@@ -1628,7 +1648,7 @@ const onGlobalFilterChange = (e) => {
         editingRowIndex={editingRowIndex}
         rowData={rowData}
         index={index}
-        isEditing={isEditing}
+       // isEditing={isEditing}
         fieldTypeMap={{ [item.field]: item.type }} 
         inputType={item?.type} // <-- pass this
         renderEditableField={renderEditableField}
@@ -1675,7 +1695,7 @@ statusChange={statusChange}
       />
     );
   };
-};
+},[activeLabel]);
 
 const [expandedRows, setExpandedRows] = useState(null);
 const onRowToggle = (e) => {
@@ -2258,7 +2278,7 @@ const DataTableContent = () => {
   const isValueMaps = navObj?.CHILD_MODULE === 'Value Maps';
   const columns = productColumns?.filter(item => item?.visibility !== false && item?.primary !== true);
 
-  const renderColumn = (item, index) => {
+  const renderColumn = useCallback((item, index) => {
    
     const commonColumnProps = {
       key: item.field,
@@ -2292,7 +2312,7 @@ const DataTableContent = () => {
         style={{ maxWidth: item?.width }}
       />
     );
-  };
+  },[gridBody]);
 
   return (
     <>
@@ -2418,7 +2438,7 @@ const DataTableContent = () => {
       // ) : 
       
       (
-        insertFields?.map(renderColumn)
+        gridColumns?.map(renderColumn)
       )}
 
       {/* Render actions for "Customer Groups" */}

@@ -119,7 +119,7 @@ return (
       let result = await getScanProcessList(Payload).unwrap();
       if(result?.status_code === 200 || result?.res_status === 'True'){
       const filteredData = result?.columns?.filter(item => item.filter);
-      debugger
+      
          let createData = result?.columns?.filter(item => item.create);
       createData = createData.map((item)=>{
         return {...item, visibility:true}
