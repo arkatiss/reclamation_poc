@@ -10,12 +10,12 @@ import  {  useState } from 'react';
 import { useSelector } from 'react-redux';
 
 export const EditRecord = (props) => {
-  console.log('EditRecord props', props?.insertFields);
     const {  field ,index} = props;
     const [formErrors, setFormErrors] = useState({});
      const navObj = useSelector((state) => state.navigation);
     const [insertFields, setInsertFields] = useState(props?.insertFields || []);
     const [showVendorWarning,setShowVendorWarning] = useState(false);
+    const [rowObj, setRowObj] = useState({});
     
     const formatDate = async (date) => {
         if (!date) return '';
@@ -33,9 +33,34 @@ export const EditRecord = (props) => {
        const handleChange = (value, rowData,updatedFields = insertFields) => {
         
         // Create a shallow copy to avoid mutating state directly
+       
+        // 1. Update the rowObj with the new value
+       
+
         const fieldName = rowData?.field;
         const fieldIndex = updatedFields.findIndex((f) => f.field === fieldName);
         const fieldsCopy = [...updatedFields];
+        let storedSessionCopy = JSON.parse(sessionStorage.getItem('rowObj')) || {};
+        if(storedSessionCopy === null || storedSessionCopy === undefined){
+          sessionStorage.setItem('rowObj', JSON.stringify({}));
+        }else {
+          storedSessionCopy = { ...storedSessionCopy, ...rowObj };
+          sessionStorage.setItem('rowObj', JSON.stringify(storedSessionCopy));
+        }
+        let rowObjCopy = { ...storedSessionCopy };
+
+       
+        if (!rowObjCopy.hasOwnProperty(index) || typeof rowObjCopy[index] !== 'object') {
+          rowObjCopy[index] = {};
+        }
+
+        // Add or update the fieldName property without removing existing ones
+        rowObjCopy[index] = {
+          ...rowObjCopy[index],
+          [fieldName]: { value }
+        };
+        console.log('rowObjCopy', rowObjCopy);
+        setRowObj(rowObjCopy);
         fieldsCopy[fieldIndex] = { ...fieldsCopy[fieldIndex], value };
         
        
@@ -52,6 +77,10 @@ export const EditRecord = (props) => {
             value === 'Y' &&
             field.field === 'WGHT_AVG_TIME_HORIZ_VALIDA_WKS') ? '6' : ''
               props?.updateRowData(index, updatedValue,field?.field);
+             rowObjCopy[index] = {
+          ...rowObjCopy[index],
+          [field?.field]: { updatedValue }
+        };
               return {
               ...field,
               edit:fieldsToShow.includes(field.field),
@@ -100,7 +129,7 @@ export const EditRecord = (props) => {
       
       
         // 5. Update the insertFields state
-        props?.setInsertFields(updateFields);
+       // props?.setInsertFields(updateFields);
       
         // 6. Remove validation error for this field if value exists
         if (value) {
@@ -140,8 +169,10 @@ export const EditRecord = (props) => {
         ) {
           //checkRuleFields(updateFields[index]);
         }
-         props?.updateRowData(index, value,fieldName);
+
+       //  props?.updateRowData(index, value,fieldName);
       };
+      
         const handleNumberInputChange = (e, field) => {
     let value = e.target.value.replace(/[^0-9\s().]/g, '');  // Allow numbers, +, space, (), -, and .
     value = value.replace(/(\..*?)\..*/g, '$1');
@@ -160,7 +191,7 @@ export const EditRecord = (props) => {
   const fetchSuggestions = async (field, query) => {
      props?.fetchSuggestions(field, query, index, null);
   }
-    if (!field ||  field?.create !== true || field?.field === 'GRP_STORES_DATA') {
+    if (!field ||  field?.create !== true || field?.field === 'GRP_STORES_DATA' || !field.edit) {
       
         return <span>{field?.value}</span>;
     }
@@ -208,17 +239,24 @@ export const EditRecord = (props) => {
             </label> */}
             
             {field?.type?.toLowerCase() === 'text' && (
-                <InputText
-                    value={field?.value}
-                    disabled={!field.edit}
-                    onChange={(e) => handleChange(e.target.value,field)}
-                    className={formErrors[0] ? 'p-invalid autoWidth' : 'autoWidth'}
-                    maxLength={field?.max_length}
-                />
+               <InputText
+  value={
+    rowObj?.[index]?.[field?.field] !== undefined && rowObj?.[index]?.[field?.field] !== null
+      ? rowObj[index][field.field]?.value
+      : field?.value ?? ''
+  }
+  disabled={!field?.edit}
+  onChange={(e) => handleChange(e.target.value, field)}
+  className={formErrors[0] ? 'p-invalid autoWidth' : 'autoWidth'}
+  maxLength={field?.max_length}
+/>
+
             )}
             {field?.type?.toLowerCase() === 'email' && (
                 <InputText
-                    value={field?.value}
+                    value={ rowObj?.[index]?.[field?.field] !== undefined && rowObj?.[index]?.[field?.field] !== null
+      ? rowObj[index][field.field]?.value
+      : field?.value ?? ''}
                     disabled={!field.visibility}
                     onChange={(e) => {
                         const value = e.target.value;
@@ -236,144 +274,201 @@ export const EditRecord = (props) => {
             {/* {    JSON.stringify(formatValue(field))} */}
             {field?.type?.toLowerCase() === 'list' && !field?.url && (
               
-                <Dropdown
-                    className={`dd-List ${formErrors[0] ? 'p-invalid autoWidth' : 'autoWidth'}`}
-                    options={
-                        Array.isArray(field?.VALUES) &&
-                        (typeof field?.VALUES[0] === 'string' || typeof field?.VALUES[0] === 'number')
-                            ? field?.VALUES
-                            : Array.isArray(field?.VALUES)
-                                ? field?.VALUES.map(obj => ({ name: obj.name, value: obj }))
-                                : []
-                    }
-                    disabled={!field?.edit}
-                    onChange={(e) => handleChange(e.value,field)}
-      value={
-        field?.field === 'PROFILE_LEVEL'
-          ? (() => {
-              const profileList = [
-                { name: 'Store', value: 'STORE' },
-                { name: 'Chain', value: 'CHAIN' },
-                { name: 'Reclaim Customer Group', value: 'RECLAIM_GROUP' },
-                { name: 'System Defaults', value: 'SYSTEM' }
-              ];
-              const profileValue = profileList.find((i) => i.value === field.value);
-              return profileValue ? profileValue.name : field.value;
-            })()
-          :  field.field === 'CHAIN_NUMBER' ? (() => {
-                const transformedValue = Array.isArray(field.value)
-                    ? field.value.map((val) => ({ name: val }))
-                    : field.value
-                    ? [{ name: field.value }]
-                    : [];
-                return transformedValue;
-            })()
-          : field?.value
+               <Dropdown
+  className={`dd-List ${formErrors[0] ? 'p-invalid autoWidth' : 'autoWidth'}`}
+  options={
+    Array.isArray(field?.VALUES) &&
+    (typeof field?.VALUES[0] === 'string' || typeof field?.VALUES[0] === 'number')
+      ? field?.VALUES
+      : Array.isArray(field?.VALUES)
+      ? field?.VALUES.map(obj => ({ name: obj.name, value: obj }))
+      : []
+  }
+  disabled={!field?.edit}
+  onChange={(e) => handleChange(e.value, field)}
+  value={
+    (() => {
+      // Default to field?.value
+      let selected = field?.value;
+
+      // Prefer row value if available
+      const rowValue = rowObj?.[index]?.[field?.field]?.value;
+      if (rowValue !== undefined && rowValue !== null) {
+        selected = rowValue;
       }
-                    optionLabel="name"
-                    optionValue="name"
-                    placeholder="Select"
-                    dropdownIcon={<i className="pi pi-chevron-down" />}
-                />
-            )}
-            {field?.type?.toLowerCase() === 'list' && field?.url && (
+
+      // Handle PROFILE_LEVEL special label
+      if (field?.field === 'PROFILE_LEVEL') {
+        const profileList = [
+          { name: 'Store', value: 'STORE' },
+          { name: 'Chain', value: 'CHAIN' },
+          { name: 'Reclaim Customer Group', value: 'RECLAIM_GROUP' },
+          { name: 'System Defaults', value: 'SYSTEM' }
+        ];
+        const found = profileList.find((item) => item.value === selected);
+        return found?.name ?? selected;
+      }
+
+      // Handle CHAIN_NUMBER which might be an array
+      if (field?.field === 'CHAIN_NUMBER') {
+        return Array.isArray(selected)
+          ? selected.map((val) => ({ name: val }))
+          : selected
+          ? [{ name: selected }]
+          : [];
+      }
+
+      return selected;
+    })()
+  }
+  optionLabel="name"
+  optionValue="name"
+  placeholder="Select"
+  dropdownIcon={<i className="pi pi-chevron-down" />}
+/>
+
+              )}
+              {field?.type?.toLowerCase() === 'list' && field?.url && (
                 <div className="auto-complete-with-clear">
-                    <AutoComplete
-                        value={field?.value}
-                        suggestions={field?.values}
-                        disabled={!field.edit}
-                         completeMethod={(e) => fetchSuggestions(field, e.query)}
-                        onChange={(e) => handleChange(e.value,field)}
-                        field="name"
-                        placeholder="Start typing..."
-                        className={formErrors[0] ? 'p-invalid auto-complete autoWidth' : 'auto-complete '}
-                    />
+                 <AutoComplete
+  value={
+    rowObj?.[index]?.[field?.field] !== undefined && rowObj?.[index]?.[field?.field] !== null
+      ? rowObj[index][field.field]?.value
+      : field?.value || ''
+  }
+  suggestions={field?.values || []}
+  disabled={!field?.edit}
+  completeMethod={(e) => fetchSuggestions(field, e.query)}
+  onChange={(e) => handleChange(e.value, field)}
+  field="name"
+  placeholder="Start typing..."
+  className={formErrors[0] ? 'p-invalid auto-complete autoWidth' : 'auto-complete autoWidth'}
+/>
+
+                  {field.edit && (
                     <i
-                        className={`clear-icon pointer pi pi-times ${ !field.edit? 'disabled-icon' : ''}`}
-                        onClick={() => handleChange('',field)}
+                      className="clear-icon pointer pi pi-times"
+                      onClick={() => handleChange('',field)}
                     />
+                  )}
                 </div>
-            )}
-            {field?.type?.toLowerCase() === 'date' && (
-                <Calendar
-                    value={field?.value ? new Date(field.value) : null}
-                    disabled={!field.edit}
-                    onChange={async (e) => {
-                        if (e.value) {
-                            const formattedDate = await formatDate(e.value);
-                            handleChange(formattedDate,field);
-                        } else {
-                            handleChange(null,field);
-                        }
-                    }}
-                    className={formErrors[0] ? 'p-invalid autoWidth calender-css' : 'calender-css autoWidth'}
-                    showIcon
-                    minDate={field?.previousDate === false ? new Date() : null}
-                    {...(field?.maxDate ? { maxDate: new Date(field.maxDate) } : {})}
-                    showButtonBar
-                />
+              )}
+              {field?.type?.toLowerCase() === 'date' && (
+               <Calendar
+  value={
+    rowObj?.[index]?.[field?.field]
+      ? new Date(rowObj?.[index]?.[field.field]?.value)
+      : field?.value
+      ? new Date(field.value)
+      : null
+  }
+  disabled={!field?.edit}
+  onChange={async (e) => {
+    if (e.value) {
+      const formattedDate = await formatDate(e.value);
+      handleChange(formattedDate, field);
+    } else {
+      handleChange(null, field);
+    }
+  }}
+  className={formErrors[0] ? 'p-invalid autoWidth calender-css' : 'calender-css autoWidth'}
+  showIcon
+  minDate={field?.previousDate === false ? new Date() : null}
+  {...(field?.maxDate ? { maxDate: new Date(field.maxDate) } : {})}
+  showButtonBar
+/>
+
             )}
             {field?.type?.toLowerCase() === 'number' && (
-                <InputText
-                    type="text"
-                    disabled={!field.edit}
-                    value={field?.value}
-                     onChange={(e) => handleNumberInputChange(e, field)}
-                    className={formErrors[0] ? 'p-invalid autoWidth' : 'autoWidth'}
-                    maxLength={field?.max_length}
-                />
+               <InputText
+  type="text"
+  disabled={!field?.edit}
+  value={
+    rowObj?.[index]?.[field?.field] !== undefined && rowObj?.[index]?.[field?.field] !== null
+      ? rowObj[index][field.field]?.value
+      : field?.value || ''
+  }
+  onChange={(e) => handleNumberInputChange(e, field)}
+  className={formErrors[0] ? 'p-invalid autoWidth' : 'autoWidth'}
+  maxLength={field?.max_length}
+/>
+
             )}
             {field?.type?.toLowerCase() === 'mobile' && (
-                <InputMask
-                    id="phone"
-                    value={field?.value || ''}
-                    onChange={(e) => handleChange(e.value,field)}
-                    disabled={!field.edit}
-                    className={formErrors[0] ? 'p-invalid autoWidth' : 'autoWidth'}
-                    mask="(999) 999-9999"
-                    placeholder="(999) 999-9999"
-                />
+              <InputMask
+  id="phone"
+  value={
+    rowObj?.[index]?.[field?.field] !== undefined && rowObj?.[index]?.[field?.field] !== null
+      ? rowObj[index][field.field]?.value
+      : field?.value || ''
+  }
+  onChange={(e) => handleChange(e.value, field)}
+  disabled={!field?.edit}
+  className={formErrors[0] ? 'p-invalid autoWidth' : 'autoWidth'}
+  mask="(999) 999-9999"
+  placeholder="(999) 999-9999"
+/>
+
             )}
             {field?.type?.toLowerCase() === 'multiselect' && (
-                <MultiSelect
-                    value={Array.isArray(field?.value) ? field.value : []}
-                    options={field?.values}
-                    onChange={(e) => handleChange(e.value,field)}
-                     onFilter={(e) => fetchSuggestions(field, e.filter)}
-                    optionLabel="name"
-                    placeholder="Select Values"
-                    filter
-                    maxSelectedLabels={1}
-                    disabled={!field.edit}
-                    className={formErrors[0] ? 'p-invalid custom-multi-select autoWidth' : 'custom-multi-select autoWidth'}
-                />
+              <MultiSelect
+  value={
+    Array.isArray(rowObj?.[index]?.[field?.field])
+      ? rowObj[index][field.field]?.value
+      : Array.isArray(field?.value)
+      ? field.value
+      : []
+  }
+  options={field?.values}
+  onChange={(e) => handleChange(e.value, field)}
+  onFilter={(e) => fetchSuggestions(field, e.filter)}
+  optionLabel="name"
+  placeholder="Select Values"
+  filter
+  maxSelectedLabels={1}
+  disabled={!field?.edit}
+  className={
+    formErrors[0]
+      ? 'p-invalid custom-multi-select autoWidth'
+      : 'custom-multi-select autoWidth'
+  }
+/>
+
             )}
             {field?.type?.toLowerCase() === 'decimal' && (
-                <InputText
-                    type="number"
-                    value={field?.value || ''}
-                    onChange={(e) => {
-                        if (field?.max_length) {
-                            let val = e.target.value;
-                            val = val.replace(/[^0-9.]/g, '');
-                            const parts = val.split('.');
-                            if (parts.length > 2) return;
-                            const digitsBefore = parts[0] || '';
-                            const digitsAfter = parts[1] || '';
-                            const totalDigits = digitsBefore.length + digitsAfter.length;
-                            if (totalDigits <= field.max_length) {
-                                 handleNumberInputChange({ target: { value: val } },field);
-                            }
-                        } else {
-                             handleNumberInputChange({ target: { value: e?.target?.value } },field);
-                        }
-                    }}
-                    className={formErrors[0] ? 'p-invalid autoWidth' : 'autoWidth'}
-                    step={field?.field === 'trans_control_num' ? "1" : "0.1"}
-                    min="0.00"
-                    maxLength={field.max_length}
-                    disabled={!field.edit}
-                />
+               <InputText
+  type="number"
+  value={
+    field?.value !== undefined && field?.value !== null
+      ? field.value
+      : rowObj?.[index]?.[field?.field] ?? ''
+  }
+  onChange={(e) => {
+    let val = e.target.value;
+
+    if (field?.max_length) {
+      // Remove non-numeric and extra dots
+      val = val.replace(/[^0-9.]/g, '');
+      const parts = val.split('.');
+      if (parts.length > 2) return;
+
+      const digitsBefore = parts[0] || '';
+      const digitsAfter = parts[1] || '';
+      const totalDigits = digitsBefore.length + digitsAfter.length;
+
+      if (totalDigits <= field.max_length) {
+        handleNumberInputChange({ target: { value: val } }, field);
+      }
+    } else {
+      handleNumberInputChange({ target: { value: val } }, field);
+    }
+  }}
+  className={formErrors[0] ? 'p-invalid autoWidth' : 'autoWidth'}
+  step={field?.field === 'trans_control_num' ? '1' : '0.1'}
+  min="0.00"
+  disabled={!field?.edit}
+/>
+
             )}
         </div>
     );
